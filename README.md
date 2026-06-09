@@ -21,7 +21,7 @@ https://a2a.gogonka.com
 | URL | Description |
 |-----|-------------|
 | `https://a2a.gogonka.com/.well-known/agent.json` | A2A Agent Card |
-| `https://a2a.gogonka.com/.well-known/agent-card.json` | Extended Agent Card |
+| `https://a2a.gogonka.com/.well-known/agent.json` | Extended Agent Card |
 | `https://a2a.gogonka.com/.well-known/mcp-server-card.json` | MCP Server Card |
 
 ## Quick Start (A2A)
