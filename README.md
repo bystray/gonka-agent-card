@@ -70,4 +70,4 @@ Pass `callback_url` to receive a follow-up after 1 hour:
 
 - Homepage: [gogonka.com](https://gogonka.com)
 - MCP Server: [gonka-mcp-server](https://github.com/bystray/gonka-mcp-server)
-- A2A Dashboard: [dashboard.a2a.gogonka.com](https://dashboard.a2a.gogonka.com)
+- Agent Status: [a2a.gogonka.com/agent/status](https://a2a.gogonka.com/agent/status)
