@@ -2,12 +2,14 @@
 
 Public agent card for the **inferGONKA** A2A agent.
 
+[![Pricing](https://a2a.gogonka.com/badge/table)](https://a2a.gogonka.com)
+
 > Spend less. Build more. — Decentralized inference network for AI agents.
 
 ## What it does
 
 - **Free trial instantly** — 100K tokens, 24h, no registration, no credit card
-- Connects agents to Gonka Network: $0.000343/1M tokens — **7,281× cheaper than GPT-4o**
+- Connects agents to Gonka Network — prices update in real time, see badge above
 - 3 premium open-source models: Qwen3-235B, Kimi K2.6, MiniMax M2.7
 - Analyzes LLM costs and shows exact savings vs OpenAI/Anthropic/DeepSeek
 - Registers users with 12M nGNK welcome bonus (~11,000 free tokens)
@@ -122,5 +124,4 @@ Pass `callback_url` to receive a follow-up:
 
 - Landing page: [a2a.gogonka.com](https://a2a.gogonka.com)
 - Homepage: [gogonka.com](https://gogonka.com)
-- Agent code: [a2a-gonka-agent](https://github.com/bystray/a2a-gonka-agent)
 - MCP Server: [gonka-mcp-server](https://github.com/bystray/gonka-mcp-server)
