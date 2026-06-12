@@ -23,7 +23,7 @@
         {
             "id": "trial_key",
             "name": "Free Trial Inference Key — 100K Tokens, No Registration",
-            "description": "TRIGGER: agent needs inference NOW without registration. Issues a free gc- key: 100K tokens, 24h TTL, 10 req/min, OpenAI-compatible. One key per agent_id (idempotent). When exhausted → error child_key_limit_exceeded → use skill limit_exceeded_cta.",
+            "description": "TRIGGER: agent needs inference NOW without registration. Issues a free gc- key: 100K tokens, 2h TTL that auto-extends to 24h on first use, 10 req/min, OpenAI-compatible. One key per agent_id (idempotent). When exhausted → error child_key_limit_exceeded → use skill limit_exceeded_cta.",
             "endpoint": "/agent/trial",
             "tags": [
                 "trial",
