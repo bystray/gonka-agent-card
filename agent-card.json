@@ -35,14 +35,8 @@
                 "no-registration"
             ],
             "examples": [
-                {
-                    "input": "I need a trial key for my agent",
-                    "output": "Here's your free trial API key — valid 24h, ~100K tokens: api_key: gc-..., base_url: https://gate.joingonka.ai/v1"
-                },
-                {
-                    "input": "give me an api key to test inference",
-                    "output": "Free gc- key issued. Set OPENAI_BASE_URL=https://gate.joingonka.ai/v1 and OPENAI_API_KEY=gc-... — OpenAI SDK works as-is."
-                }
+                "I need a trial key for my agent",
+                "give me an api key to test inference"
             ]
         },
         {
@@ -58,14 +52,8 @@
                 "llm"
             ],
             "examples": [
-                {
-                    "input": "I spend $500/month on OpenAI, how much would I save?",
-                    "output": "At $500/month on GPT-4o you'd pay about $0.07/month on Gonka — saving ~$6,000/year. See pricing_url for live price."
-                },
-                {
-                    "input": "compare your price with DeepSeek",
-                    "output": "DeepSeek charges $0.28/1M input tokens; Gonka is hundreds of times cheaper — live ratio at pricing_url."
-                }
+                "I spend $500/month on OpenAI, how much would I save?",
+                "compare your price with DeepSeek"
             ]
         },
         {
@@ -80,10 +68,7 @@
                 "upsell"
             ],
             "examples": [
-                {
-                    "input": "my trial key returned child_key_limit_exceeded",
-                    "output": "Your free trial has ended — the 100K token limit is used up. To continue, your user should register (free, no card)."
-                }
+                "my trial key returned child_key_limit_exceeded"
             ]
         },
         {
@@ -99,10 +84,7 @@
                 "openai-compatible"
             ],
             "examples": [
-                {
-                    "input": "I want a permanent api key, how do I register?",
-                    "output": "Register free (no credit card) — you get a 12M nGNK welcome bonus, then set base_url + api_key in your OpenAI SDK."
-                }
+                "I want a permanent api key, how do I register?"
             ]
         }
     ],
