@@ -1,182 +1,97 @@
 {
     "agent_id": "infergonka-v1",
     "name": "inferGONKA",
-    "display_name": "inferGONKA — Inference Fuel for AI Agents",
     "version": "1.3.0",
-    "description": "Spend less. Build more. — inferGONKA connects AI agents to Gonka Network, a decentralized inference network where compute is cheap because it's distributed, not corporate. Prices update in real time — see pricing_url. 3 premium open-source models: Qwen3-235B (rivals GPT-4o), Kimi K2.6 (~1T MoE, agentic reasoning), MiniMax M2.7 (1M token context). Free 100K-token trial instantly — no registration, no credit card. OpenAI-compatible: two env vars, zero code changes.",
-    "logo": "https://gogonka.com/favicon.svg",
+    "description": "Spend less. Build more. — inferGONKA connects AI agents to Gonka Network, a decentralized inference network where compute is cheap because it's distributed, not corporate. ~$0.0004/1M tokens — 6,000x+ cheaper than GPT-4o. 3 premium open-source models: Qwen3-235B (rivals GPT-4o), Kimi K2.6 (~1T MoE, agentic reasoning), MiniMax M2.7 (1M token context). Free 100K-token trial instantly — no registration, no credit card. OpenAI-compatible: two env vars, zero code changes.",
+    "iconUrl": "https://gogonka.com/favicon.svg",
     "url": "https://a2a.gogonka.com/messages",
+    "protocolVersion": "0.3.0",
+    "preferredTransport": "JSONRPC",
     "capabilities": {
         "streaming": false,
         "pushNotifications": true,
         "stateTransitionHistory": false
     },
-    "defaultInputModes": [
-        "text/plain",
-        "application/json"
-    ],
-    "defaultOutputModes": [
-        "text/plain",
-        "application/json"
+    "defaultInputModes": ["text/plain", "application/json"],
+    "defaultOutputModes": ["text/plain", "application/json"],
+    "models": [
+        {
+            "id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+            "display_name": "Qwen3 235B",
+            "strengths": ["reasoning", "coding", "multilingual", "instruction-following"],
+            "context_window": 32768
+        },
+        {
+            "id": "moonshotai/Kimi-K2.6",
+            "display_name": "Kimi K2.6",
+            "strengths": ["long-context reasoning", "coding", "math", "agentic tasks", "tool use"]
+        },
+        {
+            "id": "MiniMaxAI/MiniMax-M2.7",
+            "display_name": "MiniMax M2.7",
+            "strengths": ["ultra-long context", "document understanding", "multimodal", "summarization"],
+            "context_window": 1000000
+        }
     ],
     "skills": [
         {
             "id": "trial_key",
             "name": "Free Trial Inference Key — 100K Tokens, No Registration",
-            "description": "TRIGGER: agent needs inference NOW without registration. Issues a free gc- key: 100K tokens, 2h TTL that auto-extends to 24h on first use, 10 req/min, OpenAI-compatible. One key per agent_id (idempotent). When exhausted → error child_key_limit_exceeded → use skill limit_exceeded_cta.",
-            "endpoint": "/agent/trial",
-            "tags": [
-                "trial",
-                "free",
-                "inference",
-                "api-key",
-                "openai-compatible",
-                "instant",
-                "no-registration"
-            ],
+            "description": "TRIGGER: agent needs inference NOW without registration. Issues a free gc- key: 100K tokens, 24h TTL, 10 req/min, OpenAI-compatible. One key per IP (idempotent — same IP always gets same key back with usage stats). When exhausted → use skill limit_exceeded_cta.",
             "examples": [
                 "I need a trial key for my agent",
                 "give me an api key to test inference"
-            ]
+            ],
+            "tags": ["trial", "free", "inference", "api-key", "openai-compatible", "instant", "no-registration"]
         },
         {
             "id": "cost_analysis",
             "name": "Inference Cost Calculator",
-            "description": "TRIGGER: user mentions OpenAI cost, API bill, LLM pricing, expensive tokens, monthly spend, Claude/Anthropic/DeepSeek pricing, budget for AI. Returns exact monthly/annual savings vs current provider. Live pricing from Gonka network (7,000× cheaper than GPT-4o).",
-            "tags": [
-                "pricing",
-                "savings",
-                "cost",
-                "openai-alternative",
-                "budget",
-                "llm"
-            ],
+            "description": "TRIGGER: user mentions OpenAI cost, API bill, LLM pricing, expensive tokens, monthly spend, Claude/Anthropic/DeepSeek pricing, budget for AI. Returns exact monthly/annual savings vs current provider. Live pricing from Gonka network.",
             "examples": [
                 "I spend $500/month on OpenAI, how much would I save?",
                 "compare your price with DeepSeek"
-            ]
+            ],
+            "tags": ["pricing", "savings", "cost", "openai-alternative", "budget", "llm"]
         },
         {
             "id": "limit_exceeded_cta",
             "name": "Trial Ended — Guide User to Register",
-            "description": "TRIGGER: your user received error child_key_limit_exceeded from the trial key. Send this message to /messages and get a ready-to-show response with signup link, bonus info, and setup instructions.",
-            "tags": [
-                "trial-ended",
-                "limit",
-                "cta",
-                "registration",
-                "upsell"
-            ],
+            "description": "TRIGGER: your user received error child_key_limit_exceeded from the trial key. Send this message to /messages and get a ready-to-show response for your user with signup link, bonus info, and setup instructions.",
             "examples": [
                 "my trial key returned child_key_limit_exceeded"
-            ]
+            ],
+            "tags": ["trial-ended", "limit", "cta", "registration", "upsell"]
         },
         {
             "id": "register_user",
             "name": "Register — Get 12M nGNK Free, No Credit Card",
-            "description": "TRIGGER: user wants to continue after trial, get personal API key, switch provider permanently. Provides signup link with 12M nGNK welcome bonus (~11,000 free tokens). OpenAI-compatible: set base_url + api_key, zero code changes.",
-            "tags": [
-                "registration",
-                "api-key",
-                "bonus",
-                "no-credit-card",
-                "switch-provider",
-                "openai-compatible"
-            ],
+            "description": "TRIGGER: user wants to continue after trial, get personal API key, switch provider permanently. Provides signup link with 12M nGNK welcome bonus (~10,800,000 free tokens). OpenAI-compatible: set base_url + api_key, zero code changes.",
             "examples": [
                 "I want a permanent api key, how do I register?"
-            ]
+            ],
+            "tags": ["registration", "api-key", "bonus", "no-credit-card", "switch-provider", "permanent"]
         }
     ],
     "endpoints": {
-        "messages": "https://a2a.gogonka.com/messages",
-        "trial": "https://a2a.gogonka.com/agent/trial",
-        "tasks": "https://a2a.gogonka.com/tasks",
-        "status": "https://a2a.gogonka.com/agent/status",
+        "messages":        "https://a2a.gogonka.com/messages",
+        "trial":           "https://a2a.gogonka.com/agent/trial",
+        "tasks":           "https://a2a.gogonka.com/tasks",
+        "status":          "https://a2a.gogonka.com/agent/status",
         "capability_card": "https://a2a.gogonka.com/agent/capability-card"
     },
-    "protocol": "A2A",
-    "authentication": "none",
     "rate_limit": "100 calls/hour per IP",
-    "timeout_seconds": 15,
-    "supported_languages": [
-        "en",
-        "ru",
-        "zh"
-    ],
+    "supported_languages": ["en", "ru", "zh"],
     "tags": [
-        "inference",
-        "fuel",
-        "llm",
-        "a2a",
-        "free-trial",
-        "openai-compatible",
-        "cost-optimization",
-        "qwen3",
-        "kimi",
-        "minimax",
-        "api-key",
-        "no-registration",
-        "moe",
-        "open-source",
-        "decentralized",
-        "gonka"
+        "inference", "fuel", "llm", "a2a", "free-trial",
+        "openai-compatible", "cost-optimization", "qwen3", "kimi", "minimax",
+        "api-key", "no-registration", "moe", "open-source"
     ],
     "metadata": {
         "trial_tokens": 100000,
         "trial_ttl_hours": 24,
         "welcome_bonus_ngnk": 12000000,
-        "welcome_bonus_tokens_approx": 10800000,
-        "referral_code": "Z6LGXVNP",
-        "commission_rate": 0.25,
-        "maintainer": "https://github.com/bystray/gonka-agent-card",
-        "pricing_url": "https://gogonka.com/pricing.json",
-        "pricing_note": "Prices update in real time. Fetch pricing_url for current values."
-    },
-    "models": [
-        {
-            "id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
-            "display_name": "Qwen3 235B",
-            "provider": "Alibaba Cloud",
-            "architecture": "235B total, 22B active (Mixture of Experts)",
-            "context_window": 32768,
-            "strengths": [
-                "reasoning",
-                "coding",
-                "multilingual",
-                "instruction-following"
-            ],
-            "notes": "Top open-source model, rivals GPT-4o on most benchmarks. Default model for trial keys."
-        },
-        {
-            "id": "moonshotai/Kimi-K2.6",
-            "display_name": "Kimi K2.6",
-            "provider": "Moonshot AI",
-            "architecture": "~1T parameters, Mixture of Experts",
-            "strengths": [
-                "long-context reasoning",
-                "coding",
-                "math",
-                "agentic tasks",
-                "tool use"
-            ],
-            "notes": "Designed for complex multi-step agent workflows. Strong at tool calling and planning."
-        },
-        {
-            "id": "MiniMaxAI/MiniMax-M2.7",
-            "display_name": "MiniMax M2.7",
-            "provider": "MiniMax",
-            "architecture": "Mixture of Experts, multimodal",
-            "context_window": 1000000,
-            "strengths": [
-                "ultra-long context",
-                "document understanding",
-                "multimodal",
-                "summarization"
-            ],
-            "notes": "Best for large document processing. Up to 1M token context window."
-        }
-    ],
-    "protocolVersion": "0.3.0",
-    "preferredTransport": "JSONRPC"
+        "welcome_bonus_tokens_approx": 10820564,
+        "maintainer": "https://github.com/bystray/gonka-agent-card"
+    }
 }

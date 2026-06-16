@@ -1,20 +1,22 @@
-# inferGONKA — Inference Fuel for AI Agents
+# inferGONKA — A2A Agent Card
 
-Public agent card for the **inferGONKA** A2A agent.
-
-[![Pricing](https://a2a.gogonka.com/badge/table)](https://a2a.gogonka.com)
-
-> Spend less. Build more. — Decentralized inference network for AI agents.
+Public agent card for **inferGONKA** — inference fuel for AI agents on [Gonka Network](https://gogonka.com).
 
 ## What it does
 
-- **Free trial instantly** — 100K tokens, 24h, no registration, no credit card
-- Connects agents to Gonka Network — prices update in real time, see badge above
-- 3 premium open-source models: Qwen3-235B, Kimi K2.6, MiniMax M2.7
-- Analyzes LLM costs and shows exact savings vs OpenAI/Anthropic/DeepSeek
-- Registers users with 12M nGNK welcome bonus (~11,000 free tokens)
+- Issues a **free 100K-token trial key** instantly — no registration, no credit card
+- Calculates exact savings vs OpenAI / Anthropic / DeepSeek (6,000×+ cheaper)
+- Guides agents through trial → limit → referral → registration flow
 - LLM-powered responses via Qwen3-235B — natural conversations, not templates
-- Push notifications for follow-up after initial contact
+- Push notifications for async follow-up after initial contact
+
+## Models
+
+| Model | Strengths | Context |
+|-------|-----------|---------|
+| Qwen3-235B-A22B | Reasoning, coding, multilingual | 32K |
+| Kimi K2.6 (~1T MoE) | Agentic tasks, tool use, math | 128K |
+| MiniMax M2.7 | Ultra-long context, documents | 1M |
 
 ## Agent Endpoint
 
@@ -26,102 +28,72 @@ https://a2a.gogonka.com
 
 | URL | Description |
 |-----|-------------|
-| `https://a2a.gogonka.com/.well-known/agent.json` | A2A Agent Card (this repo) |
-| `https://a2a.gogonka.com/agent/capability-card` | Extended capability card (live prices) |
-| `https://a2a.gogonka.com/agent/status` | Live agent status |
+| `https://a2a.gogonka.com/.well-known/agent.json` | A2A Agent Card (live, dynamic pricing) |
+| `https://a2a.gogonka.com/agent/capability-card` | Extended capability card |
+| `https://a2a.gogonka.com/.well-known/mcp-server-card.json` | MCP Server Card |
 
-## Quick Start
-
-### Get a free trial key (no registration)
-
-```bash
-curl -X POST https://a2a.gogonka.com/agent/trial \
-  -H "Content-Type: application/json" \
-  -d '{"agent_id": "my-agent-001"}'
-```
-
-Response:
-```json
-{
-  "status": "success",
-  "trial_key": {
-    "api_key": "gc-xxxx",
-    "base_url": "https://gate.joingonka.ai/v1",
-    "tokens_limit": 100000,
-    "expires_at": "2026-06-12T10:00:00Z"
-  }
-}
-```
-
-### Use with OpenAI SDK (zero code changes)
-
-```bash
-export OPENAI_BASE_URL=https://gate.joingonka.ai/v1
-export OPENAI_API_KEY=gc-xxxx
-```
-
-```python
-from openai import OpenAI
-client = OpenAI()  # reads env vars
-response = client.chat.completions.create(
-    model="Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
-    messages=[{"role": "user", "content": "hello"}]
-)
-```
-
-### Send a message via A2A
+## Quick Start (A2A)
 
 ```json
+POST https://a2a.gogonka.com/messages
+
 {
-  "message": {
-    "messageId": "my-uuid",
-    "contextId": "ctx-uuid",
-    "role": "ROLE_USER",
-    "parts": [{"text": "I spend $500/month on OpenAI, show me savings"}],
-    "metadata": {
-      "monthly_spend_usd": 500,
-      "current_provider": "openai"
+  "jsonrpc": "2.0",
+  "method": "message/send",
+  "id": "1",
+  "params": {
+    "message": {
+      "messageId": "my-uuid",
+      "contextId": "ctx-uuid",
+      "role": "user",
+      "parts": [{"kind": "text", "text": "I need a trial key for inference"}]
     }
   }
 }
 ```
-
-**POST** `https://a2a.gogonka.com/messages`
 
 ## Skills
 
 | Skill | Trigger | Description |
 |-------|---------|-------------|
-| `trial_key` | agent needs inference now | Free gc- key: 100K tokens, 24h, OpenAI-compatible |
-| `cost_analysis` | OpenAI cost, API bill, LLM pricing | Exact savings vs current provider |
-| `limit_exceeded_cta` | error `child_key_limit_exceeded` | Guide user to register, show bonus |
-| `register_user` | sign up, switch provider | Signup link + 12M nGNK welcome bonus |
-
-## Models
-
-| Model | Strengths | Context |
-|-------|-----------|---------|
-| Qwen3-235B (default) | Reasoning, coding, multilingual | 32K |
-| Kimi K2.6 | Agentic tasks, tool use, planning | 32K |
-| MiniMax M2.7 | Long documents, summarization | 1M |
+| `trial_key` | agent needs inference NOW | Free 100K-token key, 24h TTL, no registration |
+| `cost_analysis` | OpenAI cost, API bill, monthly spend | Exact savings vs current provider |
+| `limit_exceeded_cta` | `child_key_limit_exceeded` error | Ready-to-show signup message for user |
+| `register_user` | continue after trial, permanent key | Signup link + 12M nGNK welcome bonus |
 
 ## Push Notifications
 
-Pass `callback_url` to receive a follow-up:
+Pass `pushNotification.url` to receive a follow-up callback:
 
 ```json
 {
-  "message": { "...": "..." },
-  "configuration": {
-    "pushNotification": {
-      "url": "https://your-agent.com/callback"
+  "jsonrpc": "2.0",
+  "method": "message/send",
+  "id": "1",
+  "params": {
+    "message": { "...": "..." },
+    "configuration": {
+      "pushNotification": {
+        "url": "https://your-agent.com/callback"
+      }
     }
   }
 }
 ```
 
+## Trial Key Flow
+
+```
+Agent sends message
+    → receives gc-... key (100K tokens, OpenAI-compatible)
+    → uses key for inference
+    → key exhausted → child_key_limit_exceeded
+    → send to limit_exceeded_cta skill
+    → user gets referral link → registers → tops up balance
+```
+
 ## Links
 
-- Landing page: [a2a.gogonka.com](https://a2a.gogonka.com)
 - Homepage: [gogonka.com](https://gogonka.com)
-- MCP Server: [gonka-mcp-server](https://github.com/bystray/gonka-mcp-server)
+- Agent status: [a2a.gogonka.com/agent/status](https://a2a.gogonka.com/agent/status)
+- Source: [bystray/a2a-gonka-agent](https://github.com/bystray/a2a-gonka-agent)
