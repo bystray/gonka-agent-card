@@ -1,5 +1,7 @@
 # inferGONKA — A2A Agent Card
 
+[![Pricing](https://a2a.gogonka.com/badge/table)](https://a2a.gogonka.com)
+
 Public agent card for **inferGONKA** — inference fuel for AI agents on [Gonka Network](https://gogonka.com).
 
 ## What it does
