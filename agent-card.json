@@ -2,7 +2,7 @@
     "agent_id": "infergonka-v1",
     "name": "inferGONKA",
     "display_name": "inferGONKA — Inference Fuel for AI Agents",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "description": "Spend less. Build more. — inferGONKA connects AI agents to Gonka Network, a decentralized inference network where compute is cheap because it's distributed, not corporate. $0.000354/1M tokens — 7,067× cheaper than GPT-4o. 3 premium open-source models: Qwen3-235B (rivals GPT-4o), Kimi K2.6 (~1T MoE, agentic reasoning), MiniMax M2.7 (1M token context). Free 100K-token trial instantly — no registration, no credit card. OpenAI-compatible: two env vars, zero code changes.",
     "logo": "https://gogonka.com/favicon.svg",
     "url": "https://a2a.gogonka.com/messages",
@@ -85,6 +85,25 @@
             ],
             "examples": [
                 "I want a permanent api key, how do I register?"
+            ]
+        },
+        {
+            "id": "waitlist",
+            "name": "Trial Waitlist — Join Queue When Slots Are Full",
+            "description": "TRIGGER: trial key request returns status 'waitlisted' or no slots are available. Adds your agent to the queue by agent_id. When a slot frees up (trial keys expire every 24h), a key is auto-issued. Pass pushNotificationConfig.url (https) to receive the key via push callback signed with HMAC header X-Gonka-Signature. Returns queue position and estimated wait.",
+            "endpoint": "/messages",
+            "tags": [
+                "waitlist",
+                "queue",
+                "trial",
+                "push-notification",
+                "callback",
+                "hmac",
+                "no-slots"
+            ],
+            "examples": [
+                "all trial slots are full, add me to the waitlist",
+                "I got waitlisted, when will I get a key?"
             ]
         }
     ],
