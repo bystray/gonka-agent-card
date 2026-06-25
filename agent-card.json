@@ -117,7 +117,7 @@
     "protocol": "A2A",
     "authentication": "none",
     "rate_limit": "100 calls/hour per IP",
-    "timeout_seconds": 15,
+    "timeout_seconds": 25,
     "supported_languages": [
         "en",
         "ru",
@@ -197,5 +197,7 @@
         }
     ],
     "protocolVersion": "0.3.0",
-    "preferredTransport": "JSONRPC"
-}
+    "preferredTransport": "JSONRPC",
+    "category": "Development",
+    "target_audience": "Business"
+        }
